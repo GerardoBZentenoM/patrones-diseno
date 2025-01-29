@@ -12,6 +12,8 @@
  * https://refactoring.guru/es/design-patterns/abstract-factory
  */
 
+import { COLORS } from "../helpers/colors.ts";
+
 /**
  * !Instrucciones:
  	1.Completen las Clases de Productos:
@@ -39,22 +41,35 @@ interface Engine {
 
 // 2. Clases Concretas de Productos
 
-class ElectricCar {
+class ElectricCar implements Vehicle {
+  assemble(): void {
+    console.log('Assembling an %cElectric Car 🚗', 'color: #ff5733');
+  }
   // Implementación del método assemble
   // 'Ensamblando un auto eléctrico'
 }
 
-class GasCar {
+class GasCar implements Vehicle {
+  assemble(): void {
+    console.log('Assembling an %cGas Car 🚗', COLORS.brown);
+  }
+
   // Implementación del método assemble
   // 'Ensamblando un auto de combustión'
 }
 
-class ElectricEngine {
+class ElectricEngine implements Engine {
+  start(): void {
+    console.log('Starting an %cElectric Engine ⚡ No sound for you', COLORS.yellow);
+  }
   // Implementación del método start
   // 'Arrancando motor eléctrico'
 }
 
-class GasEngine {
+class GasEngine implements Engine{
+  start(): void {
+    console.log('Starting a %cGas Engine 🔥 Run Rum', COLORS.red);
+  }
   // Implementación del método start
   // 'Arrancando motor de combustión'
 }
@@ -70,10 +85,22 @@ interface VehicleFactory {
 
 class ElectricVehicleFactory implements VehicleFactory {
   // Implementación de los métodos createVehicle y createEngine
+  createVehicle(): Vehicle {
+    return new ElectricCar();
+  }
+  createEngine(): Engine {
+    return new ElectricEngine();
+  }
 }
 
 class GasVehicleFactory implements VehicleFactory {
   // Implementación de los métodos createVehicle y createEngine
+  createEngine(): Engine {
+    return new GasEngine();
+  }
+  createVehicle(): Vehicle {
+    return new GasCar();
+  }
 }
 
 // 5. Código Cliente
@@ -87,8 +114,8 @@ function main(factory: VehicleFactory) {
 }
 
 // Pruebas
-console.log('Creando vehículo eléctrico:');
+console.log('Creando %cvehículo eléctrico:', COLORS.yellow);
 main(new ElectricVehicleFactory());
 
-console.log('\nCreando vehículo de combustión:');
+console.log('\nCreando %cvehículo de combustión:', COLORS.red);
 main(new GasVehicleFactory());
