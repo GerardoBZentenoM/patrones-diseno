@@ -38,7 +38,7 @@ class SalesReport implements Report {
   // TODO: implementar el método e imprimir en consola:
   // 'Generando reporte de ventas...'
   generate(): void {
-    console.log('Generating %Sales Report...', COLORS.blue);
+    console.log('Generating %cSales Report...', COLORS.blue);
   }
 }
 
@@ -46,7 +46,7 @@ class InventoryReport implements Report {
   // TODO: implementar el método e imprimir en consola:
   // 'Generando reporte de inventario...'
   generate(): void {
-    console.log('Generating %Inventory Report...', COLORS.pink);
+    console.log('Generating %cInventory Report...', COLORS.pink);
   }
 }
 
@@ -81,8 +81,7 @@ function main() {
   let reportFactory: ReportFactory;
 
   const reportType = prompt(
-    '¿Qué tipo de reporte deseas? %c(sales/inventory)',
-    COLORS.red
+    '¿Qué tipo de reporte deseas? (sales/inventory)'
   );
 
   if (reportType === 'sales') {
